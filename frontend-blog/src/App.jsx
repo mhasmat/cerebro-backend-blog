@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import PostDetail from './pages/PostDetail';
+import Perfil from './pages/Perfil';
 import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -25,7 +26,17 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route
+            path="/perfil"
+            element={
+              <ProtectedRoute>
+                <Perfil />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
+        
       </div>
     </>
   );

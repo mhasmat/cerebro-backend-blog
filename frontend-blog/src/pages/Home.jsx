@@ -14,8 +14,8 @@ function Home() {
       <h2 className="text-2xl mb-4">Posts públicos</h2>
       {posts.map(post => (
         <div key={post.id} className="border p-4 mb-2">
-          <h3 className="font-bold text-lg">{post.title}</h3>
-          <p>{post.content.slice(0, 100)}...</p>
+          <h3 className="font-bold text-lg">{post.titulo}</h3>
+          <p>{post.contenido.slice(0, 100)}...</p>
           <Link to={`/post/${post.id}`} className="text-blue-600">Leer más</Link>
         </div>
       ))}

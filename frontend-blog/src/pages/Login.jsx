@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import GoogleLoginButton from '../components/GoogleLoginButton';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -19,13 +20,22 @@ function Login() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-      <h2 className="text-2xl mb-4">Login</h2>
-      <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" className="input" required />
-      <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" className="input mt-2" required />
-      <button type="submit" className="btn mt-4">Login</button>
-    </form>
+    <div className="max-w-md mx-auto">
+      <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+        <h2 className="text-2xl mb-4">Login</h2>
+        <input type="text" value={username} onChange={e => setUsername(e.target.value)} placeholder="Username" className="input" required />
+        <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" className="input mt-2" required />
+        <button type="submit" className="btn mt-4">Login</button>
+      </form>
+
+        <hr />
+
+      <GoogleLoginButton />
+    </div>
   );
 }
+
+
+
 
 export default Login;
