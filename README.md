@@ -7,6 +7,7 @@ Este es un proyecto React simple que acompaña al curso **Cerebro Backend**. Fue
 ## 📦 Instalación
 
 ```bash
+cd frontend-blog
 npm install
 npm run dev
 ```
