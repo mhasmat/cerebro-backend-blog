@@ -10,17 +10,20 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('/token/', { username, password });  
+      // obtener token de acceso
+      const res = await api.post('/token/', { username, password });
+      // guardar token en el localStorage
       localStorage.setItem('token', res.data.access);
-        
+      // obtener datos del perfil usando el token
       const perfilRes = await api.get('/perfil/', {
         headers: {
           'Authorization': `Bearer ${res.data.access}`,
           'Content-Type': 'application/json'
         }
       });
-      
-      localStorage.setItem('username', perfilRes.username);  
+      // guardar datos del usuario en localStorage
+      localStorage.setItem('username', perfilRes.data.username);
+      localStorage.setItem('user_id', perfilRes.data.id);
       navigate('/dashboard');
     } catch (err) {
         alert('Login failed', err);

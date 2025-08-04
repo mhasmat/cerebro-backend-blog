@@ -9,17 +9,18 @@ function Dashboard() {
   const [editingId, setEditingId] = useState(null);
   const [username, setUsername] = useState('');
   const navigate = useNavigate();
-
+  
   useEffect(() => {
+    // verificar autenticacion al cargar el componente
     const token = localStorage.getItem('token');
-    const storedUsername = localStorage.getItem('username');
-
-    if(!token || !storedUsername) {
-      navigate('/login');
-    } else {
-      setUsername(storedUsername);
-      fetchPosts();
+      
+    if(!token) {
+      navigate('/login');      
+    } else {  
+      // obtener datos del perfil
       fetchPerfil();
+      // cargar los posts
+      fetchPosts();
     }
   }, [navigate]);
 
@@ -29,9 +30,12 @@ function Dashboard() {
     if(!token) return;
 
     try {
-      const response = await api.get('/perfil/', {
-        headers: {'Authorization': token}
-      });
+      const config = {
+        headers: {
+          'Authorization': token
+        }
+      };
+      const response = await api.get('/perfil/', config);  
       setUsername(response.data.username);
       localStorage.setItem('username', response.data.username);
     } catch(error) {
@@ -40,24 +44,34 @@ function Dashboard() {
   }
 
   const fetchPosts = async () => {
-    const res = await api.get('/posts/');
-    setPosts(res.data);
+    try {
+      const res = await api.get('/posts/');
+      setPosts(res.data);
+    } catch(error) {
+      alert('Error obteniendo posts:', error);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem('token');
     try {
+      const config = {
+        headers: {
+          'Authorization': token
+        }
+      };
       if (editingId) {
-        await api.put(`/posts/${editingId}/`, { title, content });
+        await api.put(`/posts/${editingId}/`, { title, content }, config);
       } else {
-        await api.post('/posts/', { title, content });
+        await api.post('/posts/', { title, content }, config);
       }
       setTitle('');
       setContent('');
       setEditingId(null);
       fetchPosts();
-    } catch (err) {
-      alert('Error saving post', err);
+    } catch (error) {
+      alert('Error guardando post', error);
     }
   };
 
@@ -68,11 +82,17 @@ function Dashboard() {
   };
 
   const handleDelete = async (id) => {
+    const token = localStorage.getItem('token');
     try {
-      await api.delete(`/posts/${id}/`);
+      const config = {
+        headers: {
+          'Authorization': token
+        }
+      };
+      await api.delete(`/posts/${id}/`, config);
       fetchPosts();
-    } catch {
-      alert('Error deleting post');
+    } catch(error) {
+      alert('Error borrando post:', error);
     }
   };
 
