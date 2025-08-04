@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -10,7 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <>
+    <GoogleOAuthProvider clientId="######">
       <Navbar />
       <div className="container mx-auto p-4">
         <Routes>
@@ -26,7 +27,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
           <Route
             path="/perfil"
             element={
@@ -36,9 +36,8 @@ function App() {
             }
           />
         </Routes>
-        
       </div>
-    </>
+    </GoogleOAuthProvider>
   );
 }
 
