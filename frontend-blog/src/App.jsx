@@ -11,7 +11,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId="######">
+    <GoogleOAuthProvider clientId="925389302906-f6uliv9h27htisic5n0sutmgicd4h07b.apps.googleusercontent.com">
       <Navbar />
       <div className="container mx-auto p-4">
         <Routes>
